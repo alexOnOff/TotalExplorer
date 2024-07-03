@@ -1,12 +1,30 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:TotalExplorer.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:TotalExplorer.Views"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="TotalExplorer.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="TotalExplorer" WindowStartupLocation="CenterScreen">
-        <views:MainView />
+<Window
+    x:Class="TotalExplorer.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:TotalExplorer.Views"
+    xmlns:vm="using:TotalExplorer.ViewModels"
+    Title="TotalExplorer"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Icon="/Assets/avalonia-logo.ico"
+    SystemDecorations="BorderOnly"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="Gray">
+                        <views:MainView />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+    </Window.Styles>
+
 </Window>

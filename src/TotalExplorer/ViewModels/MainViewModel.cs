@@ -16,7 +16,11 @@ internal class MainViewModel : ViewModelBase
         _selectedDirectoryTabItem = firstTabItem;
         DirectoryTabItems.Add(firstTabItem);
 
-        CloseTabCommand = ReactiveCommand.Create< DirectoryTabItemViewModel>(tabItem => {
+        CloseTabCommand = ReactiveCommand.Create< DirectoryTabItemViewModel>(tabItem => 
+        {
+            if(tabItem.Equals(SelectedDirectoryTabItem)) 
+                SelectedDirectoryTabItem = DirectoryTabItems.First();
+
             DirectoryTabItems.Remove(tabItem);
         });
 

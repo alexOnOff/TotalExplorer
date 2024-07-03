@@ -12,8 +12,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="vm:MainViewModel"
-    mc:Ignorable="d"
-    >
+    mc:Ignorable="d">
     <Design.DataContext>
         <!--
             This only sets the DataContext for the previewer in an IDE,
@@ -22,64 +21,104 @@
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <TabControl ItemsSource="{Binding DirectoryTabItems}" SelectedItem="{Binding SelectedDirectoryTabItem}">
-        <TabControl.Template>
-            <ControlTemplate>
-                <Border
-                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}">
-                    <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                            <ItemsPresenter
-                                Name="PART_ItemsPresenter"
-                                DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-                                ItemsPanel="{TemplateBinding ItemsPanel}" />
-                            <Button
-                                Width="{Binding $self.Bounds.Height}"
-                                Margin="2"
-                                Command="{Binding AddNewTabCommand}">
-                                +
-                            </Button>
-                        </StackPanel>
 
-                        <ContentPresenter
-                            Name="PART_SelectedContentHost"
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding SelectedContent}"
-                            ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
-                    </DockPanel>
-                </Border>
-            </ControlTemplate>
-        </TabControl.Template>
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <!--  Title Bar  -->
+                <RowDefinition Height="40" />
 
-        <TabControl.ItemTemplate>
-            <DataTemplate>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding CurrentDirectory}" />
+                <!--  BookMarks  -->
+                <RowDefinition Height="36" />
+
+                <!--  TabItemContent  -->
+                <RowDefinition Height="*" />
+
+            </Grid.RowDefinitions>
+
+            <!--  Title Bar  -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <ListBox ItemsSource="{Binding DirectoryTabItems}" SelectedItem="{Binding SelectedDirectoryTabItem}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding CurrentDirectory}" />
+                                <Button
+                                    Width="{Binding $self.Bounds.Height}"
+                                    Command="{Binding DataContext.CloseTabCommand, ElementName=MainViewControl}"
+                                    CommandParameter="{Binding}">
+                                    X
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button
+                    Grid.Column="1"
+                    Width="{Binding $self.Bounds.Height}"
+                    Margin="2"
+                    Command="{Binding AddNewTabCommand}">
+                    +
+                </Button>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
                     <Button
-                        Width="{Binding $self.Bounds.Height}"
-                        Command="{Binding DataContext.CloseTabCommand, ElementName=MainViewControl}"
-                        CommandParameter="{Binding}">
+                        Width="44"
+                        Height="30"
+                        Click="CollapseButton_Click">
+                        _
+                    </Button>
+                    <Button
+                        Width="44"
+                        Height="30"
+                        Click="ExpandButton_Click">
+                        P
+                    </Button>
+                    <Button
+                        Width="44"
+                        Height="30"
+                        Click="CloseButton_Click">
                         X
                     </Button>
                 </StackPanel>
-            </DataTemplate>
-        </TabControl.ItemTemplate>
-
-        <TabControl.ContentTemplate>
-            <DataTemplate>
-                <controls:DirectoryTabItem />
-            </DataTemplate>
-        </TabControl.ContentTemplate>
+            </Grid>
 
 
-    </TabControl>
+            <!--  BookMarks  -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Menu>
+                    <MenuItem Header="Work" />
+                    <MenuItem Header="Games" />
+                </Menu>
+            </StackPanel>
+
+
+            <!--  TabItemContent  -->
+            <ContentControl Grid.Row="2" Content="{Binding SelectedDirectoryTabItem}">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <controls:DirectoryTabItem />
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+
+
+        </Grid>
+
+    </Border>
+
 
 
 
