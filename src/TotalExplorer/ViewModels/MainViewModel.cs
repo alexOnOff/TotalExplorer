@@ -1,65 +1,39 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
-using System.IO;
+using System.Linq;
 using System.Reactive;
-using TotalExplorer.ViewModels.FileSystem;
 
 namespace TotalExplorer.ViewModels;
 
 internal class MainViewModel : ViewModelBase
 {
-    private FileEntityViewModel? _currentPath;
-    private FileEntityViewModel? _selectedFileEntity;
+    private DirectoryTabItemViewModel _selectedDirectoryTabItem;
 
     public MainViewModel()
     {
+        var firstTabItem = new DirectoryTabItemViewModel();
+        
+        _selectedDirectoryTabItem = firstTabItem;
+        DirectoryTabItems.Add(firstTabItem);
 
-        foreach (var disk in Directory.GetLogicalDrives()) 
-        {
-            DirectoriesAndFiles.Add(new DirectoryViewModel(disk));
-        }
+        CloseTabCommand = ReactiveCommand.Create< DirectoryTabItemViewModel>(tabItem => {
+            DirectoryTabItems.Remove(tabItem);
+        });
 
-
-        OpenDirectoryCommand = ReactiveCommand.Create<FileEntityViewModel?>(entity =>
-        {
-            if (entity is null) return;
-
-            DirectoriesAndFiles.Clear();
-
-            foreach (var entry in Directory.EnumerateDirectories(entity.Name))
-            {
-                DirectoriesAndFiles.Add(new DirectoryViewModel(entry));
-            }
-
-            foreach (var entry in Directory.EnumerateFiles(entity.Name))
-            {
-                DirectoriesAndFiles.Add(new FileViewModel(entry));
-            }
+        AddNewTabCommand = ReactiveCommand.Create(() => {
+            DirectoryTabItems.Add(new DirectoryTabItemViewModel());
+            SelectedDirectoryTabItem = DirectoryTabItems.Last();
         });
     }
 
-    #region Commands
+    public ObservableCollection<DirectoryTabItemViewModel> DirectoryTabItems { get;  set; } = [];
 
-    public ReactiveCommand<FileEntityViewModel?, Unit> OpenDirectoryCommand { get; private set; } 
-
-    #endregion
-
-
-    #region Properties
-    public string CurrentDirectory
+    public DirectoryTabItemViewModel SelectedDirectoryTabItem 
     {
-        get => _currentPath is not null ? _currentPath.Name : string.Empty;
-        set => this.RaiseAndSetIfChanged(ref _currentPath, new DirectoryViewModel(value));
+        get => _selectedDirectoryTabItem;
+        set => this.RaiseAndSetIfChanged(ref _selectedDirectoryTabItem, value);
     }
 
-    public FileEntityViewModel? SelectedFileEntity
-    {
-        get => _selectedFileEntity;
-        set => this.RaiseAndSetIfChanged(ref _selectedFileEntity, value);
-    }
-
-
-    public ObservableCollection<FileEntityViewModel> DirectoriesAndFiles { get; set; } = new();
-    #endregion
-
+    public ReactiveCommand<DirectoryTabItemViewModel, Unit> CloseTabCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> AddNewTabCommand { get; private set; }
 }
