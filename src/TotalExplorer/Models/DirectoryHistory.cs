@@ -53,10 +53,9 @@ namespace TotalExplorer.Models
         public void Add(string node)
         {
             var newNode = new LinkedListNode<string>(node);
-            _directoryNodes.AddAfter(_currentNode, newNode);
+            _directoryNodes.AddLast(newNode);
+            //_directoryNodes.AddAfter(_currentNode, newNode);
             _currentNode = newNode;
-
-            RemoveNextAfter(newNode);
 
             if (_directoryNodes.Count > Size)
                 _directoryNodes.RemoveFirst();
@@ -67,12 +66,5 @@ namespace TotalExplorer.Models
             _directoryNodes.Remove(node);
         }
 
-        private void RemoveNextAfter(LinkedListNode<string> node)
-        {
-            while(node.Next != null)
-            {
-                _directoryNodes.Remove(node.Next);
-            }
-        }
     }
 }

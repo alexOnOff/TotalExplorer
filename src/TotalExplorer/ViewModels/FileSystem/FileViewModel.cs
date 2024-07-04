@@ -9,7 +9,7 @@ internal sealed class FileViewModel : FileEntityViewModel
         FullName = dirName;
     }
 
-    public FileViewModel(FileInfo fileInfo) : base(fileInfo.FullName) {
+    public FileViewModel(FileInfo fileInfo) : base(fileInfo.Name) {
 
         FullName = fileInfo.FullName;
     }
