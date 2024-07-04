@@ -28,6 +28,9 @@
                 <!--  Title Bar  -->
                 <RowDefinition Height="40" />
 
+                <!--  Search  -->
+                <RowDefinition Height="40" />
+
                 <!--  BookMarks  -->
                 <RowDefinition Height="36" />
 
@@ -53,13 +56,12 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding CurrentDirectory}" />
+                                <TextBlock Text="{Binding CurrentDirectory.Name}" />
                                 <Button
                                     Width="{Binding $self.Bounds.Height}"
                                     Command="{Binding DataContext.CloseTabCommand, ElementName=MainViewControl}"
-                                    CommandParameter="{Binding}">
-                                    X
-                                </Button>
+                                    CommandParameter="{Binding}"
+                                    Content="X" />
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -95,9 +97,41 @@
                 </StackPanel>
             </Grid>
 
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="0"
+                    Width="{Binding $self.Bounds.Height}"
+                    Margin="2"
+                    Command="{Binding SelectedDirectoryTabItem.MoveBackCommand}"
+                    Content="&lt;-" />
+                <Button
+                    Grid.Column="1"
+                    Width="{Binding $self.Bounds.Height}"
+                    Margin="2"
+                    Command="{Binding SelectedDirectoryTabItem.MoveForwardCommand}"
+                    Content="-&gt;" />
+                <Button
+                    Grid.Column="2"
+                    Width="{Binding $self.Bounds.Height}"
+                    Margin="2"
+                    Command="{Binding SelectedDirectoryTabItem.ReloadCommand}"
+                    Content="O" />
+                <TextBox
+                    Grid.Column="3"
+                    Margin="2"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Text="{Binding SelectedDirectoryTabItem.CurrentDirectory.FullName}" />
+            </Grid>
 
             <!--  BookMarks  -->
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Menu>
                     <MenuItem Header="Work" />
                     <MenuItem Header="Games" />
@@ -106,7 +140,7 @@
 
 
             <!--  TabItemContent  -->
-            <ContentControl Grid.Row="2" Content="{Binding SelectedDirectoryTabItem}">
+            <ContentControl Grid.Row="3" Content="{Binding SelectedDirectoryTabItem}">
                 <ContentControl.ContentTemplate>
                     <DataTemplate>
                         <controls:DirectoryTabItem />

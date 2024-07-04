@@ -32,6 +32,7 @@ internal class MainViewModel : ViewModelBase
 
     public ObservableCollection<DirectoryTabItemViewModel> DirectoryTabItems { get;  set; } = [];
 
+
     public DirectoryTabItemViewModel SelectedDirectoryTabItem 
     {
         get => _selectedDirectoryTabItem;
