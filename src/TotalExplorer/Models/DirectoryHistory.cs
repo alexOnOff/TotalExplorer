@@ -1,5 +1,4 @@
-﻿using DynamicData;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace TotalExplorer.Models
