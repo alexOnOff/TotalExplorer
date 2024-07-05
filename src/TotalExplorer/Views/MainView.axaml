@@ -26,9 +26,12 @@
 
     <Border>
         <Grid>
+            <Grid.Resources>
+                <converters:WindowTitleHeightConverter x:Key="WindowTitleHeightConverterGridResource" />
+            </Grid.Resources>
             <Grid.RowDefinitions>
                 <!--  Title Bar  -->
-                <RowDefinition Height="40" />
+                <RowDefinition Height="Auto" />
 
                 <!--  Search  -->
                 <RowDefinition Height="40" />
@@ -42,7 +45,7 @@
             </Grid.RowDefinitions>
 
             <!--  Title Bar  -->
-            <Grid>
+            <Grid Height="{Binding $parent[views:MainWindow].WindowState, Converter={StaticResource WindowTitleHeightConverterGridResource}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />

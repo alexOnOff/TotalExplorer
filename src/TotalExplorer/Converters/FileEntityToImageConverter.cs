@@ -13,7 +13,7 @@ public class FileEntityToImageConverter : IValueConverter
     {
         var bitmap = new Bitmap(AssetLoader.Open(new Uri("avares://TotalExplorer/Assets/directory-solid.png")));
 
-        if(value is FileViewModel file) 
+        if (value is FileViewModel)
         {
             return new Bitmap(AssetLoader.Open(new Uri("avares://TotalExplorer/Assets/file.png")));
         }
