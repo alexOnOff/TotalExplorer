@@ -1,21 +1,22 @@
-﻿using Avalonia.Data.Converters;
+﻿using Avalonia.Controls;
+using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using System;
 using System.Globalization;
-using TotalExplorer.ViewModels.FileSystem;
 
 namespace TotalExplorer.Converters;
 
-public class FileEntityToImageConverter : IValueConverter
+internal class WindowStateToImageConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        var bitmap = new Bitmap(AssetLoader.Open(new Uri("avares://TotalExplorer/Assets/directory-solid.png")));
+        var bitmap = new Bitmap(AssetLoader.Open(new Uri("avares://TotalExplorer/Assets/window-maximize.png")));
 
-        if(value is FileViewModel file) 
+        if (value is WindowState windowState)
         {
-            return new Bitmap(AssetLoader.Open(new Uri("avares://TotalExplorer/Assets/file.png")));
+            if(windowState == WindowState.Maximized)
+                return new Bitmap(AssetLoader.Open(new Uri("avares://TotalExplorer/Assets/window-restore.png")));
         }
 
         return bitmap;

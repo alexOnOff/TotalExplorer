@@ -13,8 +13,12 @@
 
   
   <ItemGroup>
+    <None Remove="Assets\close.png" />
     <None Remove="Assets\directory-solid.png" />
     <None Remove="Assets\file.png" />
+    <None Remove="Assets\window-maximize.png" />
+    <None Remove="Assets\window-minimize.png" />
+    <None Remove="Assets\window-restore.png" />
   </ItemGroup>
 
   <ItemGroup>

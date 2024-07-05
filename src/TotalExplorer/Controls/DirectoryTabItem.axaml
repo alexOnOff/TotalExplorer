@@ -71,8 +71,8 @@
                     <Grid Background="Transparent">
 
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition MaxHeight="40" Height="Auto"/>
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
                         <Image Grid.Row="0" Source="{Binding, Converter={StaticResource FileOrDirectoryConverterResource}}" />
@@ -80,7 +80,9 @@
                         <TextBlock
                             Grid.Row="1"
                             HorizontalAlignment="Center"
-                            Text="{Binding Name}" />
+                            Text="{Binding Name}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
