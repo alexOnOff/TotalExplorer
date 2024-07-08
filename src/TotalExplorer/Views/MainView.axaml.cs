@@ -1,16 +1,19 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 
 namespace TotalExplorer.Views;
 
 public partial class MainView : UserControl
 {
+    private const string PartTitleBar = "PART_TitleBar";
+    private Grid? _titleBar;
+
     public MainView()
     {
         InitializeComponent();
-
-
     }
 
     private void CloseButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -42,5 +45,26 @@ public partial class MainView : UserControl
 
     private void Binding_1(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+    }
+
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
+
+    }
+
+    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    {
+        base.OnPointerPressed(e);
+
+        if (e.Source is null) return;
+
+        if(e.Source.Equals(PART_TitleBar))
+        {
+            if (Parent.Parent is MainWindow window)
+            {
+                window.BeginMoveDrag(e);
+            }
+        }
     }
 }

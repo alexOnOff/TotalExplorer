@@ -45,7 +45,10 @@
             </Grid.RowDefinitions>
 
             <!--  Title Bar  -->
-            <Grid Height="{Binding $parent[views:MainWindow].WindowState, Converter={StaticResource WindowTitleHeightConverterGridResource}}">
+            <Grid
+                Name="PART_TitleBar"
+                Height="{Binding $parent[views:MainWindow].WindowState, Converter={StaticResource WindowTitleHeightConverterGridResource}}"
+                Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
