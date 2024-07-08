@@ -10,22 +10,38 @@
     Title="TotalExplorer"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    ExtendClientAreaToDecorationsHint="True"
     Icon="/Assets/avalonia-logo.ico"
     SystemDecorations="BorderOnly"
+    TransparencyLevelHint="AcrylicBlur"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="BackgroundBrush">White</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="BackgroundBrush">Black</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Window.Styles>
+        <Style Selector="Border">
+            <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
+        </Style>
         <Style Selector="Window">
             <Setter Property="Template">
                 <ControlTemplate>
-                    <Border Background="Gray">
-                        <views:MainView />
+                    <Border Background="Transparent">
+                        <views:MainView Background="Transparent" />
                     </Border>
                 </ControlTemplate>
             </Setter>
         </Style>
-
     </Window.Styles>
-
 </Window>

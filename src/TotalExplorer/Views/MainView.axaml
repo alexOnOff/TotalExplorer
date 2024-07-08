@@ -25,7 +25,7 @@
 
 
     <Border>
-        <Grid>
+        <Grid Background="Transparent">
             <Grid.Resources>
                 <converters:WindowTitleHeightConverter x:Key="WindowTitleHeightConverterGridResource" />
             </Grid.Resources>
@@ -56,6 +56,31 @@
                 </Grid.ColumnDefinitions>
 
                 <ListBox ItemsSource="{Binding DirectoryTabItems}" SelectedItem="{Binding SelectedDirectoryTabItem}">
+                    <ListBox.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.ThemeDictionaries>
+                                <ResourceDictionary x:Key="Light">
+                                    <SolidColorBrush x:Key="BackgroundBrushPointerOver">WhiteSmoke</SolidColorBrush>
+                                    <SolidColorBrush x:Key="BackgroundBrushSelected">LightGray</SolidColorBrush>
+                                </ResourceDictionary>
+                                <ResourceDictionary x:Key="Dark">
+                                    <SolidColorBrush x:Key="BackgroundBrushPointerOver">Gray</SolidColorBrush>
+                                    <SolidColorBrush x:Key="BackgroundBrushSelected">#FF363636</SolidColorBrush>
+                                </ResourceDictionary>
+                            </ResourceDictionary.ThemeDictionaries>
+                        </ResourceDictionary>
+
+                    </ListBox.Resources>
+                    <ListBox.Styles>
+                        <Style Selector="ContentPresenter:pointerover">
+                            <Setter Property="Background" Value="{DynamicResource BackgroundBrushPointerOver}" />
+                        </Style>
+
+                        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource BackgroundBrushSelected}" />
+                        </Style>
+                    </ListBox.Styles>
+
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />
@@ -153,7 +178,10 @@
 
 
             <!--  TabItemContent  -->
-            <ContentControl Grid.Row="3" Content="{Binding SelectedDirectoryTabItem}">
+            <ContentControl
+                Grid.Row="3"
+                Background="Transparent"
+                Content="{Binding SelectedDirectoryTabItem}">
                 <ContentControl.ContentTemplate>
                     <DataTemplate>
                         <controls:DirectoryTabItem />
