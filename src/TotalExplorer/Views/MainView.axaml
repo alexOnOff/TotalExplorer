@@ -171,8 +171,9 @@
             <!--  BookMarks  -->
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Menu>
-                    <MenuItem Header="Work" />
-                    <MenuItem Header="Games" />
+                    <MenuItem Command="{Binding ToMusicCommand}" Header="Music" />
+                    <MenuItem Command="{Binding ToDownlandsCommand}" Header="StartMenu" />
+                    <MenuItem Command="{Binding ToDcimCommand}" Header="DCIM" />
                 </Menu>
             </StackPanel>
 

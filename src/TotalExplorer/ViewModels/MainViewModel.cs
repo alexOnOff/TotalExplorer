@@ -1,7 +1,14 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Controls;
+using Avalonia.Platform.Storage;
+using ReactiveUI;
+using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
+using TotalExplorer.ViewModels.FileSystem;
+
 
 namespace TotalExplorer.ViewModels;
 
@@ -28,6 +35,23 @@ internal class MainViewModel : ViewModelBase
             DirectoryTabItems.Add(new DirectoryTabItemViewModel());
             SelectedDirectoryTabItem = DirectoryTabItems.Last();
         });
+
+        ToDcimCommand = ReactiveCommand.Create(() => {
+            var dcim = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyComputer);
+            SelectedDirectoryTabItem.OpenDirectoryCommand.Execute(new DirectoryViewModel(new DirectoryInfo(dcim))).Subscribe();
+        });
+
+        ToMusicCommand = ReactiveCommand.Create(() =>
+        {
+            var path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyMusic);
+            SelectedDirectoryTabItem.OpenDirectoryCommand.Execute(new DirectoryViewModel(new DirectoryInfo(path))).Subscribe();
+            
+        });
+
+        ToDownlandsCommand = ReactiveCommand.Create(() => {
+            var dcim = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures);
+            SelectedDirectoryTabItem.OpenDirectoryCommand.Execute(new DirectoryViewModel(new DirectoryInfo(dcim))).Subscribe();
+        });
     }
 
     public ObservableCollection<DirectoryTabItemViewModel> DirectoryTabItems { get;  set; } = [];
@@ -41,4 +65,9 @@ internal class MainViewModel : ViewModelBase
 
     public ReactiveCommand<DirectoryTabItemViewModel, Unit> CloseTabCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> AddNewTabCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> ToDcimCommand { get; private set; }
+
+    public ReactiveCommand<Unit, Unit> ToMusicCommand { get; private set; }
+
+    public ReactiveCommand<Unit, Unit> ToDownlandsCommand { get; private set; }
 }
