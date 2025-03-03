@@ -1,6 +1,4 @@
-﻿using Avalonia.Controls;
-using Avalonia.Platform.Storage;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;

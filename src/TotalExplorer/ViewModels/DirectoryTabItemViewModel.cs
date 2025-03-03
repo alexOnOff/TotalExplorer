@@ -8,7 +8,7 @@ using TotalExplorer.ViewModels.FileSystem;
 
 namespace TotalExplorer.ViewModels;
 
-internal class DirectoryTabItemViewModel : ViewModelBase
+public class DirectoryTabItemViewModel : ViewModelBase
 {
     private const string HomeStr = "Home";
     private FileEntityViewModel? _currentPath;
@@ -33,6 +33,7 @@ internal class DirectoryTabItemViewModel : ViewModelBase
 
             if (entity is DirectoryViewModel directory)
             {
+                // LAB: Comment this            
                 DirectoriesAndFiles.Clear();
                 _directoryHistory.Add(entity.FullName);
                 CurrentDirectory = entity;
