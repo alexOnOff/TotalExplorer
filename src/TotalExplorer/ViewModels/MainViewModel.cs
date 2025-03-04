@@ -50,6 +50,10 @@ internal class MainViewModel : ViewModelBase
             var dcim = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures);
             SelectedDirectoryTabItem.OpenDirectoryCommand.Execute(new DirectoryViewModel(new DirectoryInfo(dcim))).Subscribe();
         });
+
+        CreateFileCommand = ReactiveCommand.Create(() => { 
+            
+        });
     }
 
     public ObservableCollection<DirectoryTabItemViewModel> DirectoryTabItems { get;  set; } = [];
@@ -64,8 +68,7 @@ internal class MainViewModel : ViewModelBase
     public ReactiveCommand<DirectoryTabItemViewModel, Unit> CloseTabCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> AddNewTabCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> ToDcimCommand { get; private set; }
-
     public ReactiveCommand<Unit, Unit> ToMusicCommand { get; private set; }
-
     public ReactiveCommand<Unit, Unit> ToDownlandsCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> CreateFileCommand { get; private set; }
 }

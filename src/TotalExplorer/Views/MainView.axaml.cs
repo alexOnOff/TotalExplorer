@@ -1,8 +1,13 @@
 ﻿using Avalonia;
+using Avalonia.Animation.Easings;
+using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Media;
+using Avalonia.Styling;
+using System;
 
 namespace TotalExplorer.Views;
 
@@ -10,7 +15,7 @@ public partial class MainView : UserControl
 {
     private const string PartTitleBar = "PART_TitleBar";
     private Grid? _titleBar;
-
+    private bool _isMenuVisible = false;
     public MainView()
     {
         InitializeComponent();
@@ -67,4 +72,5 @@ public partial class MainView : UserControl
             }
         }
     }
+
 }

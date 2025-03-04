@@ -42,6 +42,9 @@
                 <!--  TabItemContent  -->
                 <RowDefinition Height="*" />
 
+                <!--  Create file  -->
+                <RowDefinition Height="Auto" />
+
             </Grid.RowDefinitions>
 
             <!--  Title Bar  -->
@@ -198,13 +201,19 @@
                 </ContentControl.ContentTemplate>
             </ContentControl>
 
-
+            <StackPanel
+                Grid.Row="4"
+                MinHeight="40"
+                Background="Transparent">
+                <Button
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding CreateFileCommand}"
+                    FontSize="24">
+                    +
+                </Button>
+            </StackPanel>
         </Grid>
 
     </Border>
-
-
-
-
-
 </UserControl>
