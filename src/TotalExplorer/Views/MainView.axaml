@@ -101,6 +101,7 @@
                 </ListBox>
 
                 <Button
+                    Name="Plus"
                     Grid.Column="1"
                     Width="{Binding $self.Bounds.Height}"
                     Margin="2"
@@ -161,6 +162,7 @@
                     Command="{Binding SelectedDirectoryTabItem.ReloadCommand}"
                     Content="O" />
                 <TextBox
+                    Name="CurDir"
                     Grid.Column="3"
                     Margin="2"
                     VerticalAlignment="Center"
@@ -171,9 +173,15 @@
             <!--  BookMarks  -->
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Menu>
-                    <MenuItem Command="{Binding ToMusicCommand}" Header="Music" />
+                    <MenuItem
+                        Name="MusicMenuItem"
+                        Command="{Binding ToMusicCommand}"
+                        Header="Music" />
                     <MenuItem Command="{Binding ToDownlandsCommand}" Header="StartMenu" />
-                    <MenuItem Command="{Binding ToDcimCommand}" Header="DCIM" />
+                    <MenuItem
+                        Name="DcimMenuItem"
+                        Command="{Binding ToDcimCommand}"
+                        Header="DCIM" />
                 </Menu>
             </StackPanel>
 

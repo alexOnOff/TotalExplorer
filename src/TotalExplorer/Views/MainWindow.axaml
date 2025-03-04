@@ -13,6 +13,7 @@
     ExtendClientAreaToDecorationsHint="True"
     Icon="/Assets/avalonia-logo.ico"
     SystemDecorations="BorderOnly"
+    Tag="win"
     TransparencyLevelHint="AcrylicBlur"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -30,18 +31,8 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Window.Styles>
-        <Style Selector="Border">
-            <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
-        </Style>
-        <Style Selector="Window">
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Border Background="Transparent">
-                        <views:MainView Background="Transparent" />
-                    </Border>
-                </ControlTemplate>
-            </Setter>
-        </Style>
-    </Window.Styles>
+
+    <Border Name="Border1" Background="Transparent">
+        <views:MainView Name="mainView" Background="Transparent" />
+    </Border>
 </Window>
