@@ -1,6 +1,8 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Controls.Shapes;
+using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Reactive;
 using TotalExplorer.Models;
@@ -15,7 +17,9 @@ public class DirectoryTabItemViewModel : ViewModelBase
     private FileEntityViewModel? _selectedFileEntity;
     private bool _isMoveBackExecutable = false;
     private bool _isMoveForwardExecutable = false;
+    private bool _isTxtOpen = false;
     private IDirectoryHistory _directoryHistory;
+    private string _txtFileContent = string.Empty;
 
     public DirectoryTabItemViewModel()
     {
@@ -39,6 +43,28 @@ public class DirectoryTabItemViewModel : ViewModelBase
                 CurrentDirectory = entity;
                 FillCollectionByDirInfo(entity.FullName);
             }
+
+            if(entity is FileViewModel file)
+            {
+                var fileInfo = new FileInfo(file.FullName);
+
+                if(fileInfo.Extension == ".txt")
+                {
+                    IsTxtOpen = true;
+
+                    using (StreamReader reader = new StreamReader(file.FullName))
+                    {
+                        string text = reader.ReadToEnd();
+                        TxtFileContent = text;
+                    }
+                }
+            }
+        });
+
+        CloseTxtFileCommand = ReactiveCommand.Create(() => 
+        {
+            TxtFileContent = string.Empty;
+            IsTxtOpen = false;
         });
 
         MoveBackCommand = ReactiveCommand.Create(() => 
@@ -79,6 +105,18 @@ public class DirectoryTabItemViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _isMoveForwardExecutable, value);
     }
 
+    public string TxtFileContent
+    {
+        get => _txtFileContent;
+        set => this.RaiseAndSetIfChanged(ref _txtFileContent, value);
+    }
+
+    public bool IsTxtOpen
+    {
+        get => _isTxtOpen;
+        set => this.RaiseAndSetIfChanged(ref _isTxtOpen, value);
+    }
+
     public FileEntityViewModel? SelectedFileEntity
     {
         get => _selectedFileEntity;
@@ -93,6 +131,7 @@ public class DirectoryTabItemViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> MoveBackCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> MoveForwardCommand {  get; private set; }
     public ReactiveCommand<Unit, Unit> ReloadCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> CloseTxtFileCommand {  get; private set; }
 
     #endregion
 

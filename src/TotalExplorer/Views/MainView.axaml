@@ -183,8 +183,8 @@
                     <MenuItem Command="{Binding ToDownlandsCommand}" Header="StartMenu" />
                     <MenuItem
                         Name="DcimMenuItem"
-                        Command="{Binding ToDcimCommand}"
-                        Header="DCIM" />
+                        Command="{Binding ToAppDataCommand}"
+                        Header="AppData" />
                 </Menu>
             </StackPanel>
 
@@ -206,12 +206,33 @@
                 MinHeight="40"
                 Background="Transparent">
                 <Button
+                    Name="CreateFileButton"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
-                    Command="{Binding CreateFileCommand}"
+                    Click="CreateFileButtonClick"
                     FontSize="24">
                     +
                 </Button>
+                <StackPanel Name="CreateFileDialog" IsVisible="False">
+                    <TextBox Text="{Binding NewFileName}" Watermark="Имя файла" />
+                    <TextBox
+                        MinHeight="60"
+                        Text="{Binding NewFileContent}"
+                        Watermark="Текст" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Click="CreateFileDialogCancelButtonClick"
+                        Command="{Binding CreateFileCommand}">
+                        OK
+                    </Button>
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Click="CreateFileDialogCancelButtonClick">
+                        Cancel
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </Grid>
 

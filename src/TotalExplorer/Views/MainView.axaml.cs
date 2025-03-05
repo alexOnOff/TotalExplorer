@@ -8,6 +8,8 @@ using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Styling;
 using System;
+using Avalonia.Platform.Storage;
+
 
 namespace TotalExplorer.Views;
 
@@ -15,7 +17,8 @@ public partial class MainView : UserControl
 {
     private const string PartTitleBar = "PART_TitleBar";
     private Grid? _titleBar;
-    private bool _isMenuVisible = false;
+    public bool CreateFileDialogIsVesible = false;
+
     public MainView()
     {
         InitializeComponent();
@@ -73,4 +76,15 @@ public partial class MainView : UserControl
         }
     }
 
+    private void CreateFileButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        CreateFileButton.IsVisible = false;
+        CreateFileDialog.IsVisible = true;
+    }
+
+    private void CreateFileDialogCancelButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        CreateFileButton.IsVisible = true;
+        CreateFileDialog.IsVisible = false;
+    }
 }
